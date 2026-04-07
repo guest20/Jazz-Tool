@@ -30,7 +30,7 @@ jobs:
       image: perl
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
       # there should be a --deployment here, but we don't have a cpanfile.snapshot, 
       # so instead of installing pinned versions we'll just use whatever's on cpan
       - name: carton install 
