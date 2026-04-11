@@ -25,6 +25,7 @@ get '/' => sub ($c) {
   my $do_bass  = $c->param('do_bass')  // 1;
   my $simple   = $c->param('simple')   || 0;
   my $reverb   = $c->param('reverb')   // 15;
+  my $swing    = $c->param('swing')    || 60;
 
   _purge($c); # purge defunct midi files
 
@@ -49,6 +50,7 @@ get '/' => sub ($c) {
       do_bass  => $do_bass,
       simple   => $simple,
       reverb   => $reverb,
+      swing    => $swing,
     );
 
     $msgs = $jazz->process;
@@ -74,6 +76,7 @@ get '/' => sub ($c) {
     do_bass  => $do_bass ? 1 : 0,
     simple   => $simple ? 1 : 0,
     reverb   => $reverb,
+    swing    => $swing,
   );
 } => 'index';
 
@@ -188,7 +191,7 @@ __DATA__
       </div>
     </div>
   </div>
-
+<!--
   <div class="form-group">
     <div class="row">
       <div class="col">
@@ -199,7 +202,17 @@ __DATA__
       </div>
     </div>
   </div>
-
+-->
+  <div class="form-group">
+    <div class="row">
+      <div class="col">
+        <label for="swing">Swing % (50-100):</label>
+      </div>
+      <div class="col">
+        <input type="number" class="form-control form-control-sm" id="swing" name="swing" min="50" max="100" value="<%= $swing %>" title="Swing percentage (50-100)">
+      </div>
+    </div>
+  </div>
   <div class="row">
     <div class="col">
       <div class="form-check form-check-inline">
