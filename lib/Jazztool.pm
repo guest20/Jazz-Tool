@@ -58,7 +58,7 @@ sub drums {
     my ($self) = @_;
 
     if ($self->do_drums) {
-        $self->drummer->metronome44swing($self->drummer->bars * $self->repeat);
+        $self->drummer->metronome4($self->drummer->bars * $self->repeat * 2, $self->drummer->ride1, $self->drummer->eighth, 60);
         $self->drummer->note($self->drummer->whole, $self->drummer->kick, $self->drummer->ride1);
     }
     elsif ($self->hihat) {
