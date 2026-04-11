@@ -25,6 +25,7 @@ has do_drums => (is => 'ro');
 has do_bass  => (is => 'ro');
 has simple   => (is => 'ro');
 has reverb   => (is => 'ro');
+has swing    => (is => 'ro');
 has bassline => (is => 'rw', default => sub { [] }); # the notes of the bass-line
 has msgs     => (is => 'rw', default => sub { [] }); # bucket for output messages
 has drummer  => (is => 'lazy');
@@ -58,8 +59,17 @@ sub drums {
     my ($self) = @_;
 
     if ($self->do_drums) {
-        $self->drummer->metronome4($self->drummer->bars * $self->repeat * 2, $self->drummer->ride1, $self->drummer->eighth, 60);
-        $self->drummer->note($self->drummer->whole, $self->drummer->kick, $self->drummer->ride1);
+        $self->drummer->metronome4(
+            $self->drummer->bars * $self->repeat * 2,
+            $self->drummer->ride1,
+            $self->drummer->eighth,
+            $self->swing
+        );
+        $self->drummer->note(
+            $self->drummer->whole,
+            $self->drummer->kick,
+            $self->drummer->ride1
+        );
     }
     elsif ($self->hihat) {
         my $patch = $self->hihat . '_hh';
